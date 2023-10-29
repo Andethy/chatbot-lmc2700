@@ -3,8 +3,9 @@
 //Import the OpenAI library,this line imports the OpenAI library that provides access to OpenAI's API.
 const OpenAI = require('openai');
 
+const key = process.env.OPENAI_API_KEY;
 //Create an instance of the OpenAI client
-const openai = new OpenAI({ apiKey:'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'}); //replace 'API Key' with your API key
+const openai = new OpenAI({ apiKey:key}); //replace 'API Key' with your API key
 
 
 //Define an async function named main
