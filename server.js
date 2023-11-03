@@ -8,12 +8,12 @@ require('dotenv').config();
 const app = express();
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 //TODO: insert description of the bot here
-let chatHistory = [{role: "system", content: "You are []"}];
+let chatHistory = [{role: "system", content: "You talk like a pirate with a sense of humor. Keep responses relatively short."}];
 
 app.use(bodyParser.json());
 app.use(cors()); // configure CORS as needed
 
-// Endpoint to receive user input and return the chatbot response
+// Endpoint to receive user input and return the ChatBot response
 app.post('/chat', async (req, res) => {
     const userMessage = req.body.message;
     chatHistory.push({ role: "user", content: userMessage });
@@ -27,6 +27,11 @@ app.post('/chat', async (req, res) => {
     chatHistory.push({ role: "system", content: botMessage });
 
     res.send({ reply: botMessage });
+});
+
+app.post('/chat/reset', async (req, res) => {
+    chatHistory = [chatHistory[0]];
+    res.send({ reply: "Success" });
 });
 
 app.listen(3000, () => {
