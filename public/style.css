@@ -6,7 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     background-color: black;
     background-image: url("images/bg.png");
     /*Get window size*/
@@ -14,27 +14,27 @@ body {
     background-size: 100%;
     background-repeat: no-repeat;
     background-position-y: -250px;
+
 }
 
 .avatar {
     width: 100px; /* Adjust as needed */
 }
 #chat-box {
-    width: 500px; /* Fixed width */
-    min-width: 500px;
+    width: 100vh;
 
-    height: 400px;
-    min-height: 400px;
+    height: 75vh;
+    /*height: 50%;*/
 
-    padding-inline: 25px;
+    padding: 25px;
     border-radius: 15px;
-    overflow-y: auto;
+    /*overflow-y: hidden;*/
     background: linear-gradient(135deg, rgba(234, 247, 254, 0.25) 0%, rgba(209, 238, 252, 0.5) 100%);
     border: 2px solid rgba(170, 226, 255, 0.8);
     box-shadow: 0 0 15px 5px rgba(170, 226, 255, 0.3), inset 0 0 20px 5px rgba(170, 226, 255, 0.5);
     position: sticky;
     box-sizing: border-box;
-    /*z-index: 1;*/
+    z-index: 1;
 }
 
 .btn {
@@ -60,6 +60,7 @@ input {
 }
 
 #chat-container {
+    height: 100%;
     width: 50%;
     /*width: 500px;*/
     margin: auto;
@@ -79,20 +80,20 @@ input {
 .message {
     padding: 10px;
     margin: 5px;
+    width: 75%;
     border-radius: 20px;
     border-width: 1px;
     line-height: 1.4;
-    min-width: 25%;
-    max-width: 60%;
     word-wrap: break-word;
     /*background: rgba(255, 255, 255, 0.2); !* Adjust opacity as needed *!*/
     mix-blend-mode: screen;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Add some glow */
     /*background: radial-gradient(circle at 70% 30%, rgba(220,245,255,1.0) 0%, rgba(230,250,255,0.9) 35%, rgba(240,255,255,0.8) 100%);*/
     background: radial-gradient(circle at 70% 30%, rgba(110,155,185,1.0) 0%, rgba(130,165,190,0.9) 35%, rgba(150,175,205,0.8) 100%);
+    /*overflow-y: visible;*/
 
-
-    position: relative; /* This is needed for the pseudo elements */
+    position: sticky; /* This is needed for the pseudo elements */
+    z-index: 10;
     color: white;
 
 }
