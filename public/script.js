@@ -1,13 +1,16 @@
-var count = 1;
+
+// Sends a message to the server
 async function sendMessage() {
     const userInput = document.getElementById('user-input').value;
+    // Handles empty user input
     if (userInput === '') {
         return;
     }
     document.getElementById('user-input').value = '';
 
-    // updateChatBox('You: ' + userInput);
+    //
     appendMessage(userInput, 'user');
+    // Retrieve the bots response
     const response = await fetch('http://localhost:3000/chat', {
         method: 'POST',
         headers: {
@@ -16,11 +19,15 @@ async function sendMessage() {
         body: JSON.stringify({ message: userInput }),
     });
 
+    // Get the response from the server
     const data = await response.json();
-    // console.log(data.reply)
+    // Add the bots response to the chat box
     appendMessage(data.reply, 'bot');
 }
+
+// Resets the chat history
 async function resetChat() {
+    // Send a request to the server to reset the chat history
     const response = await fetch('http://localhost:3000/chat/reset', {
         method: 'POST',
         headers: {
@@ -28,41 +35,34 @@ async function resetChat() {
         },
     });
 
+    // Get the response from the server
     const data = await response.json();
+    // Add the bots response to the chat box (output to console for debugging)
     console.log(data);
     resetChatBox(data);
 }
 
+// Resets the chat box
 function resetChatBox() {
+    // Clear the chat box
     const chatBox = document.getElementById('chat-box');
     chatBox.innerHTML = '';
 }
 
+// Appends a message to the chat box
 function appendMessage(content, sender) {
+    // Create a new message div element to add to the chat box
     const chatBox = document.getElementById('chat-box');
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', sender + '-message');
-    // messageDiv.innerHTML += '<pre>' + content + '</pre>';
     messageDiv.textContent = content;
-    count++;
-    messageDiv.style.zIndex = count + '';
     chatBox.appendChild(messageDiv);
-    // chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
-    // chatBox.scrollTop = chatBox.scrollHeight;
-    // wait a second then scroll to the bottom
-    chatBox.style.transform = 'translateZ(0)';
 
-    setTimeout(() => {
-        chatBox.style.transform = 'translateZ(0)';
-        chatBox.style.overflowY = 'auto';
-        chatBox.style.transform = 'translateZ(0)';
-        chatBox.style.display = 'none';
-        chatBox.offsetHeight; // Trigger reflow
-        chatBox.style.display = 'block';
-    }, 1000);
-    chatBox.style.transform = 'translateZ(0)';
-
+    // Immediately after appending, set overflow and scroll to bottom
+    chatBox.style.overflowY = 'scroll';
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
+
 
 
 // This function checks the visibility based on the scroll position
@@ -87,5 +87,4 @@ function checkVisibility() {
 }
 
 // Listen for the scroll event on window
-// window.addEventListener('scroll', checkVisibility);
 document.getElementById('chat-box').addEventListener('scroll', checkVisibility);
